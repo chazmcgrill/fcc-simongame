@@ -1,4 +1,13 @@
-# Created by https://www.gitignore.io/api/osx,sass
+# Created by https://www.gitignore.io/api/osx,sass,codekit
+
+### CodeKit ###
+# General CodeKit files to ignore
+config.codekit
+/min
+
+### CodeKit Patch ###
+*/codekit-config.json
+.codekit-cache
 
 ### OSX ###
 *.DS_Store
@@ -31,4 +40,4 @@ Temporary Items
 .sass-cache/
 *.css.map
 
-# End of https://www.gitignore.io/api/osx,sass
+# End of https://www.gitignore.io/api/osx,sass,codekit
