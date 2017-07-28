@@ -504,7 +504,8 @@ section {
             top: 2px;
             left: 20px;
             width: 18px;
-            height: 16px; }
+            height: 16px;
+            transition: all 400ms ease-in-out; }
 
 footer {
   display: flex;
