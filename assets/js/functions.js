@@ -16,24 +16,18 @@ $(document).ready(function(){
 
   // display pattern
   function displayPattern(array, count, length) {
-    if(count === length) {
-      console.log(array[count] + ' = final count');
-      $('#' + array[count]).addClass('filter');
-      // play specified sound
-      setTimeout(function(){
-        $('#' + array[count]).removeClass('filter');
-      }, 1000);
-      return 0;
-    } else {
-      console.log(array[count]);
-      $('#' + array[count]).addClass('filter');
-      // play specified sound
-      setTimeout(function(){
-        // add highlight to css
-        $('#' + array[count]).removeClass('filter');
+    $('#' + array[count]).addClass('filter');
+    setTimeout(function(){
+      $('#' + array[count]).removeClass('filter');
+      if(count === length) {
+        console.log(array[count] + ' = final count');
+        return 0;
+      } else {
+        console.log(array[count]);
         return displayPattern(array, count + 1, length);
-      }, 1000);
-    }
+      }
+    }, 1000);
+
   }
 
   // button click events
