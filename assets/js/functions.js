@@ -36,9 +36,11 @@ $(document).ready(function(){
     $(this).click(function() {
       console.log($(this).attr('id'));
       console.log(pattern[current]);
+
       // check if correct button pressed
       if ($(this).attr('id') == pattern[current]) {
         console.log('correct');
+        
         // continue pattern if correct pattern pressed
         if (current === pattern.length - 1) {
           level++;
@@ -48,33 +50,45 @@ $(document).ready(function(){
         } else {
           current++;
         }
+
       // show error if incorrect button pressed
       } else {
         console.log('incorrect');
-        levelCounter(level, true);
-        current = 0;
-        displayPattern(pattern, 0, pattern.length - 1)
+        $('.count-screen').text('!!');
+        setTimeout(function() {
+          if (!strictBtn) {
+            levelCounter(level);
+            current = 0;
+            displayPattern(pattern, 0, pattern.length - 1);
+
+          // strict mode
+          } else {
+            // reset
+            reset();
+          }
+        }, 1000);
       }
     });
   });
 
   // counter increase for each new pattern
-  function levelCounter(val, err) {
-    if (err) {
-      $('.count-screen').text('!!');
-      setTimeout(function() {
-        val = level;
-        $('.count-screen').text('0' + val);
-      }, 1000);
-    } else {
-      if (val < 9) {
-        val = '0' + val;
-      }
-      $('.count-screen').text(val);
+  function levelCounter(val) {
+    if (val < 9) {
+      val = '0' + val;
     }
+    $('.count-screen').text(val);
   }
 
-  // strict mode
+  // reset function
+  function reset() {
+    levelCounter(0);
+    level = 0;
+    pattern = [];
+    $('.start-btn').css('background', '#4FB0C6');
+    startBtn = !startBtn;
+  }
+
+  // on / off switch
 
   // light up button and play sound when pressed
 
