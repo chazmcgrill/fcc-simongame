@@ -10,18 +10,21 @@ footer
     display: flex
     justify-content: space-between
 
-    img
-      height: 16px
+    svg
+      height: 18px
 
-      &:hover path
-        fill: $base-three
+    path
+      fill: $dark
 
   p
     font-size: 10px
 
   a
-    color: black
+    color: $dark
     text-decoration: none
 
     &:hover
       color: $base-three
+
+    &:hover path
+      fill: $base-three

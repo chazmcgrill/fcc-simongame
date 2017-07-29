@@ -117,7 +117,7 @@
 		"oS": 3
 		},
 	"\/assets\/css\/main.sass": {
-		"aP": 0,
+		"aP": 1,
 		"bl": 0,
 		"dP": 10,
 		"dS": 0,
@@ -126,7 +126,7 @@
 		"oA": 0,
 		"oAP": "\/assets\/css\/main.css",
 		"oF": 0,
-		"oS": 0,
+		"oS": 3,
 		"uL": 1
 		},
 	"\/assets\/img\/icon-behance.svg": {
@@ -198,6 +198,15 @@
 		"opt": 0,
 		"plM": 3758088159,
 		"prP": 0
+		},
+	"\/assets\/js\/functions-min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/assets\/js\/functions-min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
 		},
 	"\/assets\/js\/functions.js": {
 		"ft": 64,
