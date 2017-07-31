@@ -17,10 +17,11 @@ $(document).ready(function(){
 
   // display pattern
   function displayPattern(arr, count, len) {
-
+    gameOn = false;
     $('#' + arr[count]).addClass('filter');
     setTimeout(function(){
       $('#' + arr[count]).removeClass('filter');
+      gameOn = true;
       if(count === len) {
         console.log(arr[count] + ' = final count');
         return 0;
@@ -35,23 +36,29 @@ $(document).ready(function(){
   // button click events
   $('.buttons').each(function() {
     $(this).click(function() {
+
       if (gameOn) {
         console.log($(this).attr('id'));
         console.log(pattern[current]);
 
         // check if correct button pressed
         if ($(this).attr('id') == pattern[current]) {
+          $(this).addClass('filter');
+          setTimeout(function() {
+            $('.buttons').removeClass('filter');
+            // continue pattern if correct pattern pressed
+            if (current === pattern.length - 1) {
+              level++;
+              levelCounter(level);
+              current = 0;
+              patGen();
+            } else {
+              current++;
+            }
+          }, 500);
           console.log('correct');
 
-          // continue pattern if correct pattern pressed
-          if (current === pattern.length - 1) {
-            level++;
-            levelCounter(level);
-            current = 0;
-            patGen();
-          } else {
-            current++;
-          }
+
 
           // show error if incorrect button pressed
         } else {
@@ -63,12 +70,11 @@ $(document).ready(function(){
               current = 0;
               displayPattern(pattern, 0, pattern.length - 1);
 
-              // strict mode
+            // strict mode
             } else {
-              // reset
               reset();
             }
-          }, 1000);
+          }, 500);
         }
 
       }
@@ -91,8 +97,6 @@ $(document).ready(function(){
     $('.start-btn').css('background', '#4FB0C6');
     startBtn = !startBtn;
   }
-
-  // light up button and play sound when pressed
 
   // sound files
 
@@ -118,12 +122,11 @@ $(document).ready(function(){
     if (gameOn) {
       if (!startBtn) {
         $(this).css('background', '#9eedff');
-        patGen();
       } else {
         reset();
         // screen blink
-        patGen();
       }
+      patGen();
       startBtn = !startBtn;
     }
   });

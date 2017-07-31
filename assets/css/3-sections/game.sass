@@ -15,7 +15,7 @@ section
     .buttons
       height: 200px
       width: 200px
-      transition: all 500ms linear
+      // transition: all 500ms linear
       filter: brightness(100%)
 
     .one-button
@@ -30,8 +30,16 @@ section
     .four-button
       background: $base-four
 
+    @keyframes highlight
+      10%
+        filter: brightness(100%)
+      50%
+        filter: brightness(180%)
+      90%
+        filter: brightness(100%)
+
     .filter
-      filter: brightness(180%)
+      animation: highlight 0.6s
 
     .divider-horizontal, .divider-vertical
       background: $dark
