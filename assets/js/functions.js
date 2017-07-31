@@ -5,7 +5,13 @@ $(document).ready(function(){
       gameOn = false,
       pattern = [],
       current = 0,
-      level = 1;
+      level = 1,
+      sounds = {
+        1: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+        2: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+        3: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+        4: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
+      };
 
   // create random pattern
   function patGen() {
@@ -17,6 +23,7 @@ $(document).ready(function(){
 
   // display pattern
   function displayPattern(arr, count, len) {
+    sounds[arr[count]].play();
     gameOn = false;
     $('#' + arr[count]).addClass('filter');
     setTimeout(function(){
@@ -39,10 +46,11 @@ $(document).ready(function(){
 
       if (gameOn) {
         console.log($(this).attr('id'));
-        console.log(pattern[current]);
-
+        // console.log(pattern[current]);
+        var cur = $(this).attr('id');
         // check if correct button pressed
         if ($(this).attr('id') == pattern[current]) {
+          sounds[cur].play();
           $(this).addClass('filter');
           setTimeout(function() {
             $('.buttons').removeClass('filter');
@@ -98,9 +106,7 @@ $(document).ready(function(){
     startBtn = !startBtn;
   }
 
-  // sound files
 
-  // space between button lights (css animation?)
 
   // TRANSFER THIS TO CSS FOR MEDIA QUERY
   // on/off switch click event
