@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  console.log('site loaded');
+
   var startBtn = false,
       strictBtn = false,
       gameOn = false,
@@ -13,93 +13,103 @@ $(document).ready(function(){
         4: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
       };
 
+
   // create random pattern
   function patGen() {
     var node = Math.floor(Math.random() * 4) + 1;
     pattern.push(node);
-    console.log(pattern);
     displayPattern(pattern, 0, pattern.length - 1);
   }
+
 
   // display pattern
   function displayPattern(arr, count, len) {
     sounds[arr[count]].play();
     gameOn = false;
     $('#' + arr[count]).addClass('filter');
+
     setTimeout(function(){
       $('#' + arr[count]).removeClass('filter');
       gameOn = true;
+
       if(count === len) {
-        console.log(arr[count] + ' = final count');
         return 0;
       } else {
-        console.log(arr[count]);
         setTimeout(function() {
           return displayPattern(arr, count + 1, len);
         }, 200);
       }
-    }, 500);
 
+    }, 500);
   }
+
 
   // button click events
   $('.buttons').each(function() {
     $(this).click(function() {
-
+      var cur = $(this).attr('id');
       if (gameOn) {
-        console.log($(this).attr('id'));
-        // console.log(pattern[current]);
-        var cur = $(this).attr('id');
         // check if correct button pressed
-        if ($(this).attr('id') == pattern[current]) {
+        if (cur == pattern[current]) {
           sounds[cur].play();
           $(this).addClass('filter');
-          setTimeout(function() {
-            $('.buttons').removeClass('filter');
-            // continue pattern if correct pattern pressed
-            if (current === pattern.length - 1) {
-              level++;
-              levelCounter(level);
-              current = 0;
-              setTimeout(function(){
-                patGen();
-              }, 500);
-            } else {
-              current++;
-            }
-          }, 500);
-          console.log('correct');
-
-
-
-          // show error if incorrect button pressed
+          clickCorrect();
+        // show error if incorrect button pressed
         } else {
-          console.log('incorrect');
-          $('.count-screen').text('!!');
-          setTimeout(function() {
-            if (!strictBtn) {
-              levelCounter(level);
-              current = 0;
-              displayPattern(pattern, 0, pattern.length - 1);
-
-            // strict mode
-            } else {
-              reset();
-            }
-          }, 500);
+          clickError();
         }
-
       }
     });
   });
+
+
+  // click correct function
+  function clickCorrect() {
+    setTimeout(function() {
+      $('.buttons').removeClass('filter');
+      // continue pattern if correct pattern pressed
+      if (current === pattern.length - 1) {
+        level++;
+        levelCounter(level);
+        current = 0;
+        setTimeout(function(){
+          patGen();
+        }, 500);
+      } else {
+        current++;
+      }
+    }, 500);
+  }
+
+
+  // click error
+  function clickError() {
+    $('.count-screen').text('!!');
+
+    setTimeout(function() {
+
+      if (!strictBtn) {
+        levelCounter(level);
+        current = 0;
+        displayPattern(pattern, 0, pattern.length - 1);
+      } else {
+        reset();
+      }
+
+    }, 500);
+  }
+
 
   // counter increase for each new pattern
   function levelCounter(val) {
     if (val < 10) {
       val = '0' + val;
+    } else if (val === 20) {
+      console.log('gameover');
     }
     $('.count-screen').text(val);
   }
+
 
   // reset function
   function reset() {
@@ -111,8 +121,7 @@ $(document).ready(function(){
   }
 
 
-
-  // TRANSFER THIS TO CSS FOR MEDIA QUERY
+  // TRANSFER THIS TO CSS FOR MEDIA QUERY?
   // on/off switch click event
   $('.onoff-btn').click(function() {
     var $this = $(this);
@@ -126,7 +135,7 @@ $(document).ready(function(){
   });
 
 
-  // THESE CAN BE MERGED
+  // THESE CAN BE MERGED?
   // start button click event
   $('.start-btn').click(function() {
     if (gameOn) {
@@ -136,10 +145,12 @@ $(document).ready(function(){
         reset();
         // screen blink
       }
+      $('.count-screen').text('01');
       patGen();
       startBtn = !startBtn;
     }
   });
+  
 
   // strict button click event
   $('.strict-btn').click(function() {
