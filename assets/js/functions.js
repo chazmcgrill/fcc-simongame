@@ -34,9 +34,11 @@ $(document).ready(function(){
         return 0;
       } else {
         console.log(arr[count]);
-        return displayPattern(arr, count + 1, len);
+        setTimeout(function() {
+          return displayPattern(arr, count + 1, len);
+        }, 200);
       }
-    }, 1000);
+    }, 500);
 
   }
 
@@ -59,7 +61,9 @@ $(document).ready(function(){
               level++;
               levelCounter(level);
               current = 0;
-              patGen();
+              setTimeout(function(){
+                patGen();
+              }, 500);
             } else {
               current++;
             }
@@ -91,7 +95,7 @@ $(document).ready(function(){
 
   // counter increase for each new pattern
   function levelCounter(val) {
-    if (val < 9) {
+    if (val < 10) {
       val = '0' + val;
     }
     $('.count-screen').text(val);
