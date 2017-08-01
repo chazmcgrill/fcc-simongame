@@ -15,6 +15,19 @@
 		"oAP": "\/.gitignore",
 		"oF": 0
 		},
+	"\/assets\/css\/1-tools\/animation.sass": {
+		"aP": 0,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 2,
+		"ma": 0,
+		"oA": 1,
+		"oAP": "\/assets\/css\/1-tools\/animation.css",
+		"oF": 0,
+		"oS": 0,
+		"uL": 1
+		},
 	"\/assets\/css\/1-tools\/fonts.sass": {
 		"aP": 0,
 		"bl": 0,
