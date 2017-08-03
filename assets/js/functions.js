@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-  var startBtn = false,
+  var h = $(window).height(),
+      startBtn = false,
       strictBtn = false,
       gameOn = false,
       pattern = [],
@@ -12,6 +13,9 @@ $(document).ready(function(){
         3: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
         4: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
       };
+
+  // Set body to viewport height (android fix)
+  $('body').css('height', h + 'px');
 
 
   // create random pattern
@@ -84,10 +88,10 @@ $(document).ready(function(){
 
   // click error
   function clickError() {
-    $('.count-screen').text('!!');
+    $('.count-value').text('!!').addClass('flash');
 
     setTimeout(function() {
-
+      $('.count-value').removeClass('flash');
       if (!strictBtn) {
         levelCounter(level);
         current = 0;
@@ -95,8 +99,8 @@ $(document).ready(function(){
       } else {
         reset();
       }
+    }, 1500);
 
-    }, 500);
   }
 
 
@@ -107,7 +111,7 @@ $(document).ready(function(){
     } else if (val === 20) {
       console.log('gameover');
     }
-    $('.count-screen').text(val);
+    $('.count-value').text(val);
   }
 
 
@@ -121,10 +125,10 @@ $(document).ready(function(){
   }
 
 
-  // TRANSFER THIS TO CSS FOR MEDIA QUERY?
   // on/off switch click event
   $('.onoff-btn').click(function() {
     var $this = $(this);
+    $('.count-value').toggleClass('handle');
     if (!gameOn) {
       $this.css('left', '2px');
     } else {
@@ -135,7 +139,6 @@ $(document).ready(function(){
   });
 
 
-  // THESE CAN BE MERGED?
   // start button click event
   $('.start-btn').click(function() {
     if (gameOn) {
@@ -145,23 +148,19 @@ $(document).ready(function(){
         reset();
         // screen blink
       }
-      $('.count-screen').text('01');
+      $('.count-value').text('01');
       patGen();
       startBtn = !startBtn;
     }
+    gameOn && (!startBtn)
   });
-  
+
 
   // strict button click event
   $('.strict-btn').click(function() {
-    if (gameOn) {
-      if (strictBtn) {
-        $(this).css('background', '#6C49B8');
-      } else {
-        $(this).css('background', '#c9b3f9');
-      }
-      strictBtn = !strictBtn;
-    }
+    gameOn && (strictBtn ? $(this).css('background', '#6C49B8')
+    : $(this).css('background', '#c9b3f9'));
+    strictBtn = !strictBtn;
   });
 
 

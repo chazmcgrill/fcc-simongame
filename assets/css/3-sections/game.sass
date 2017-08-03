@@ -33,7 +33,7 @@ section
       background: $base-four
 
     .filter
-      animation: highlight 0.6s
+      animation: light 0.6s
 
     .divider-horizontal, .divider-vertical
       background: $dark
@@ -71,7 +71,7 @@ section
         line-height: 1
 
         @media (max-width: 390px)
-          font-size: 190%
+          font-size: 1.4rem
           margin-top: 20px
 
       .btns-wrap
@@ -93,12 +93,20 @@ section
           height: 25px
           background: $base-one
           border-radius: 5px
-          font-size: 2em
+          font-size: 1.4rem
           display: flex
           align-items: center
           justify-content: center
           font-family: 'Share Tech Mono', monospace
           color: #9eedff
+
+          .handle
+            opacity: 0.4
+
+          .flash
+            animation: flashing 0.5s linear infinite
+
+
 
         .start-btn, .strict-btn
           width: 18px
