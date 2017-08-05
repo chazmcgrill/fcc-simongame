@@ -78,7 +78,7 @@ $(document).ready(function(){
         current = 0;
         setTimeout(function(){
           patGen();
-        }, 500);
+        }, 1500);
       } else {
         current++;
       }
