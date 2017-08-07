@@ -17,7 +17,6 @@ $(document).ready(function(){
   // Set body to viewport height (android fix)
   $('body').css('height', h + 'px');
 
-
   // create random pattern
   function patGen() {
     var node = Math.floor(Math.random() * 4) + 1;
@@ -28,6 +27,7 @@ $(document).ready(function(){
 
   // display pattern
   function displayPattern(arr, count, len) {
+    console.log(pattern);
     sounds[arr[count]].play();
     gameOn = false;
     $('#' + arr[count]).addClass('filter');
@@ -52,6 +52,9 @@ $(document).ready(function(){
   $('.buttons').each(function() {
     $(this).click(function() {
       var cur = $(this).attr('id');
+      console.log('cur = ' + cur);
+      console.log('current = ' + current);
+      console.log('pattern[current] = ' + pattern[current]);
       if (gameOn) {
         // check if correct button pressed
         if (cur == pattern[current]) {
@@ -74,11 +77,18 @@ $(document).ready(function(){
       // continue pattern if correct pattern pressed
       if (current === pattern.length - 1) {
         level++;
-        levelCounter(level);
-        current = 0;
-        setTimeout(function(){
-          patGen();
-        }, 1500);
+        if (level < 21) {
+          levelCounter(level);
+          current = 0;
+          setTimeout(function(){
+            patGen();
+          }, 1500);
+        } else {
+          levelCounter('WIN');
+          setTimeout(function() {
+            reset();
+          }, 1000);
+        }
       } else {
         current++;
       }
@@ -108,8 +118,6 @@ $(document).ready(function(){
   function levelCounter(val) {
     if (val < 10) {
       val = '0' + val;
-    } else if (val === 20) {
-      console.log('gameover');
     }
     $('.count-value').text(val);
   }
@@ -118,6 +126,7 @@ $(document).ready(function(){
   // reset function
   function reset() {
     levelCounter(0);
+    current = 0;
     level = 1;
     pattern = [];
     $('.start-btn').css('background', '#4FB0C6');
