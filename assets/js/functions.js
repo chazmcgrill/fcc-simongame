@@ -27,7 +27,6 @@ $(document).ready(function(){
 
   // display pattern
   function displayPattern(arr, count, len) {
-    console.log(pattern);
     sounds[arr[count]].play();
     gameOn = false;
     $('#' + arr[count]).addClass('filter');
@@ -46,28 +45,6 @@ $(document).ready(function(){
 
     }, 500);
   }
-
-
-  // button click events
-  $('.buttons').each(function() {
-    $(this).click(function() {
-      var cur = $(this).attr('id');
-      console.log('cur = ' + cur);
-      console.log('current = ' + current);
-      console.log('pattern[current] = ' + pattern[current]);
-      if (gameOn) {
-        // check if correct button pressed
-        if (cur == pattern[current]) {
-          sounds[cur].play();
-          $(this).addClass('filter');
-          clickCorrect();
-        // show error if incorrect button pressed
-        } else {
-          clickError();
-        }
-      }
-    });
-  });
 
 
   // click correct function
@@ -132,6 +109,25 @@ $(document).ready(function(){
     $('.start-btn').css('background', '#4FB0C6');
     startBtn = !startBtn;
   }
+
+
+  // button click events
+  $('.buttons').each(function() {
+    $(this).click(function() {
+      var cur = $(this).attr('id');
+      if (gameOn) {
+        // check if correct button pressed
+        if (cur == pattern[current]) {
+          sounds[cur].play();
+          $(this).addClass('filter');
+          clickCorrect();
+        // show error if incorrect button pressed
+        } else {
+          clickError();
+        }
+      }
+    });
+  });
 
 
   // on/off switch click event
