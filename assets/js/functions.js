@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-  var h = $(window).height(),
+  var isSafari = navigator.userAgent.indexOf("Safari") === -1;
+      h = $(window).height(),
       startBtn = false,
       strictBtn = false,
       gameOn = false,
@@ -21,31 +22,56 @@ $(document).ready(function(){
   function patGen() {
     var node = Math.floor(Math.random() * 4) + 1;
     pattern.push(node);
-    displayPattern(pattern, 0, pattern.length - 1);
+    // displayPattern(pattern, 0, pattern.length - 1);
+    displayPattern();
   }
 
 
   // display pattern
-  function displayPattern(arr, count, len) {
-    sounds[arr[count]].play();
+  // function displayPattern(arr, count, len) {
+  //   sounds[arr[count]].play();
+  //   gameOn = false;
+  //   $('#' + arr[count]).addClass('filter');
+  //
+  //   setTimeout(function(){
+  //     $('#' + arr[count]).removeClass('filter');
+  //     gameOn = true;
+  //
+  //     if(count === len) {
+  //       return 0;
+  //     } else {
+  //       setTimeout(function() {
+  //         return displayPattern(arr, count + 1, len);
+  //       }, 200);
+  //     }
+  //
+  //   }, 800);
+  //
+  // }
+
+  function displayPattern() {
     gameOn = false;
-    $('#' + arr[count]).addClass('filter');
-
-    setTimeout(function(){
-      $('#' + arr[count]).removeClass('filter');
-      gameOn = true;
-
-      if(count === len) {
-        return 0;
-      } else {
-        setTimeout(function() {
-          return displayPattern(arr, count + 1, len);
-        }, 200);
-      }
-
-    }, 500);
+    var i = 0,
+        patShow = setInterval(function(){
+          patternShow(pattern[i]);
+          i++;
+          if (i === pattern.length) {
+            clearInterval(patShow);
+          }
+        }, 1200)
+    gameOn = true;
   }
 
+  function patternShow(item) {
+    if (isSafari) {
+      // sounds[item].load();
+    }
+    sounds[item].play();
+    $('#' + item).addClass('filter');
+    setTimeout(function(){
+        $('#' + item).removeClass('filter');
+    }, 1000);
+  }
 
   // click correct function
   function clickCorrect() {
@@ -82,7 +108,8 @@ $(document).ready(function(){
       if (!strictBtn) {
         levelCounter(level);
         current = 0;
-        displayPattern(pattern, 0, pattern.length - 1);
+        // displayPattern(pattern, 0, pattern.length - 1);
+        displayPattern();
       } else {
         reset();
       }
@@ -118,8 +145,7 @@ $(document).ready(function(){
       if (gameOn) {
         // check if correct button pressed
         if (cur == pattern[current]) {
-          sounds[cur].play();
-          $(this).addClass('filter');
+          patternShow(cur);
           clickCorrect();
         // show error if incorrect button pressed
         } else {
@@ -151,7 +177,6 @@ $(document).ready(function(){
         $(this).css('background', '#9eedff');
       } else {
         reset();
-        // screen blink
       }
       $('.count-value').text('01');
       patGen();

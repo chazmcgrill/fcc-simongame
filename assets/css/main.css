@@ -548,8 +548,8 @@ section .game-board .four-button {
 }
 
 section .game-board .filter {
-  -webkit-animation: light 0.6s;
-          animation: light 0.6s;
+  -webkit-animation: light 0.8s;
+          animation: light 0.8s;
 }
 
 section .game-board .divider-horizontal, section .game-board .divider-vertical {

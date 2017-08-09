@@ -526,7 +526,7 @@
 	"bowerSaveDependencies": 1,
 	"bowerSaveDevDependencies": 0,
 	"bowerUseExactVersion": 0,
-	"browserRefreshDelay": 0,
+	"browserRefreshDelay": 2,
 	"buildFolderActive": 0,
 	"buildFolderName": "build",
 	"cleanBuild": 1,
