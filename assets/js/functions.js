@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  var isSafari = navigator.userAgent.indexOf("Safari") === -1;
+  var // isSafari = navigator.userAgent.indexOf("Safari") === -1;
       h = $(window).height(),
       startBtn = false,
       strictBtn = false,
@@ -22,38 +22,14 @@ $(document).ready(function(){
   function patGen() {
     var node = Math.floor(Math.random() * 4) + 1;
     pattern.push(node);
-    // displayPattern(pattern, 0, pattern.length - 1);
     displayPattern();
   }
-
-
-  // display pattern
-  // function displayPattern(arr, count, len) {
-  //   sounds[arr[count]].play();
-  //   gameOn = false;
-  //   $('#' + arr[count]).addClass('filter');
-  //
-  //   setTimeout(function(){
-  //     $('#' + arr[count]).removeClass('filter');
-  //     gameOn = true;
-  //
-  //     if(count === len) {
-  //       return 0;
-  //     } else {
-  //       setTimeout(function() {
-  //         return displayPattern(arr, count + 1, len);
-  //       }, 200);
-  //     }
-  //
-  //   }, 800);
-  //
-  // }
 
   function displayPattern() {
     gameOn = false;
     var i = 0,
         patShow = setInterval(function(){
-          patternShow(pattern[i]);
+          patternShow(pattern[i], 1000);
           i++;
           if (i === pattern.length) {
             clearInterval(patShow);
@@ -62,22 +38,20 @@ $(document).ready(function(){
     gameOn = true;
   }
 
-  function patternShow(item) {
-    if (isSafari) {
-      // sounds[item].load();
-    }
+  function patternShow(item, time) {
+    // if (isSafari) {
+    //   sounds[item].load();
+    // }
     sounds[item].play();
     $('#' + item).addClass('filter');
     setTimeout(function(){
         $('#' + item).removeClass('filter');
-    }, 1000);
+    }, time);
   }
 
   // click correct function
   function clickCorrect() {
     setTimeout(function() {
-      $('.buttons').removeClass('filter');
-      // continue pattern if correct pattern pressed
       if (current === pattern.length - 1) {
         level++;
         if (level < 21) {
@@ -108,7 +82,6 @@ $(document).ready(function(){
       if (!strictBtn) {
         levelCounter(level);
         current = 0;
-        // displayPattern(pattern, 0, pattern.length - 1);
         displayPattern();
       } else {
         reset();
@@ -145,7 +118,7 @@ $(document).ready(function(){
       if (gameOn) {
         // check if correct button pressed
         if (cur == pattern[current]) {
-          patternShow(cur);
+          patternShow(cur, 500);
           clickCorrect();
         // show error if incorrect button pressed
         } else {
@@ -158,12 +131,11 @@ $(document).ready(function(){
 
   // on/off switch click event
   $('.onoff-btn').click(function() {
-    var $this = $(this);
     $('.count-value').toggleClass('handle');
     if (!gameOn) {
-      $this.css('left', '2px');
+      $(this).css('left', '2px');
     } else {
-      $this.css('left', '20px');
+      $(this).css('left', '20px');
       reset();
     }
     gameOn = !gameOn;
